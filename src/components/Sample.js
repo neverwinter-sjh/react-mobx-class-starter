@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import { observable, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 @inject('store')
 @observer
 class Sample extends Component {
+  @observable test = 5;
+  @action setTest = () => {
+    this.test += 1;
+  }
+
   setRandomColor = () => {
     const { store } = this.props;
     const color = [
@@ -27,11 +33,14 @@ class Sample extends Component {
 
   render() {
     return (
-        <div>          
-          <button type="button" onClick={this.increaseNumber}>+1</button>
-          <button type="button" onClick={this.decreaseNumber}>-1</button>
-          <button type="button" onClick={this.setRandomColor}>Random Color</button>
-        </div>
+      <div>
+        <button type="button" onClick={this.increaseNumber}>+1</button>
+        <button type="button" onClick={this.decreaseNumber}>-1</button>
+        <button type="button" onClick={this.setRandomColor}>Random Color</button>
+        <br />
+        <p>{this.test}</p>
+        <button type="button" onClick={this.setTest}>+1</button>
+      </div>
     );
   }
 }
